@@ -1,0 +1,290 @@
+@import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
+
+body {
+  font-family: "Cabin", Arial, sans-serif;
+  color: #ffffff;
+  background-color: #0c001c;
+}
+
+h1{
+  text-align: center;
+  color: #ff00d4;
+  font-weight: bolder;
+
+}
+
+.navbar {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.banner {
+  margin-top: 4em;
+  border-bottom: 1px solid #0c001c;
+  margin-bottom: 1.5em;
+  padding-bottom: 0.5em;
+}
+
+h1 small {
+  color: #a0dfff;
+}
+
+.card {
+  background-color: #000000;
+  border-color: #ff00d4;
+  text-align: center;
+}
+
+.card-primary {
+  border-color: #ff00d4;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.review-header {
+  background-color: #0c001c;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.review {
+  margin-right: -20px;
+  margin-left: -20px;
+  margin-bottom: 1em;
+}
+
+h4 a, h4 a:hover {
+  color: #fff;
+}
+
+h4 small {
+  font-size: 60%;
+  line-height: 200%;
+  color: #aaa;
+}
+
+.address {
+  margin-bottom: 0.5rem;
+}
+
+.badge.badge-warning {
+
+  background-color: #a6b5bc;
+  color: #25363e;
+  font-size: 1.1em;
+
+}
+
+.facilities span.badge {
+  margin-bottom:2%;
+  margin-right: 0.5%;
+  background-color: #a6b5bc;
+  color: #25363e;
+  font-size: 1em;
+}
+
+legend {
+  font-family: 'Lobster', cursive;
+}
+
+.fa.fa-star{
+
+color: #dfa334;
+font-size: 2em;
+text-align: center;
+
+}
+
+.lead{
+
+text-align: center;
+
+}
+
+.container{
+
+align-items: center;
+
+}
+
+.reviewAuthor{
+
+  font-size: 2em;
+  margin-left: 2%;
+
+}
+
+.reviewTimestamp{
+
+  font-size: 1.5em;
+  margin-left: 2%;
+
+}
+
+.reviewText{
+
+  font-size: 1.2em;
+
+}
+
+.game-info{
+
+  text-align: center;
+
+}
+
+.developer{
+
+  font-size: 2em;
+
+}
+
+.description-text{
+
+  font-size: 1.2em;
+
+}
+
+.badge.badge-warning{
+
+  margin-right: 1%;
+
+}
+
+.registerpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.containerregister {
+  text-align: center;
+}
+
+.titleregister {
+  font-size: 8rem; 
+  color: #ff00d4;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 30px; 
+}
+
+.buttonsregister {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.buttonregister {
+  background-color: #a036e2;
+  border: none;
+  padding: 0.5em 1em;
+  font-size: 2.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  width: 6em; 
+  margin: 0 20px; 
+}
+
+.buttonregister:hover {
+  background-color: #822db6; 
+}
+
+.or-text {
+  font-size: 2.5rem; 
+  color: white;
+  margin: 0 20px;
+}
+
+@media (max-width: 600px) {
+  .registerpage {
+    align-items: center;
+  }
+
+  .titleregister {
+    font-size: 4rem; 
+    margin-bottom: 20px;
+  }
+
+  .buttonsregister {
+    flex-direction: column; 
+  }
+
+  .buttonregister {
+    font-size: 2rem; 
+    margin: 10px 0;
+  }
+
+  .or-text {
+    margin: 10px 0;
+    font-size: 2rem; 
+  }
+}
+
+.modal-content {
+  background-color: #1a1a1a; 
+  color: #ffffff; 
+}
+
+.modal-header {
+  border-bottom: 1px solid #444444; 
+}
+
+.modal-title {
+  color: #f8f9fa;
+}
+
+.form-control {
+  background-color: #333333; 
+  border: 1px solid #555555; 
+  color: #f8f9fa;
+}
+
+.form-control::placeholder {
+  color: #999999; 
+}
+
+.form-control:focus {
+  background-color: #444444; 
+  border-color: #777777; 
+  color: #ffffff;
+}
+
+label {
+  color: #f8f9fa; 
+}
+
+button.btn-primary {
+  background-color: #6200ea; 
+  border: none; 
+  color: #ffffff; 
+}
+
+button.btn-primary:hover {
+  background-color: #7c00ff;
+}
+
+button.close {
+  color: #ffffff; 
+}
+
+button.close:hover {
+  color: #f8f9fa; 
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+h3.text-center {
+  margin-bottom: 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #444444;
+}

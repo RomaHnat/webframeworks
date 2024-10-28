@@ -1,0 +1,78 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
+
+  body
+    .registerpage
+      .containerregister
+        .titleregister GAMER
+          sup ²
+        .buttonsregister
+          button.buttonregister#loginButton(type='button', data-toggle='modal', data-target='#loginModal') Log In
+          span.or-text OR
+          button.buttonregister#signupButton(type='button', data-toggle='modal', data-target='#signupModal') Sign Up
+
+    //- Login Modal
+    .modal.fade#loginModal(tabindex='-1', role='dialog', aria-labelledby='loginModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            h3.text-center Login 
+            form#loginForm
+              .form-group
+                label(for='username') Username
+                input.form-control(type='text', id='username', placeholder='Enter username', required)
+              .form-group
+                label(for='password') Password
+                input.form-control(type='password', id='password', placeholder='Enter password', required)
+              .text-center
+                button.btn.btn-primary(type='submit') Log In
+
+    //- Signup Modal
+    .modal.fade#signupModal(tabindex='-1', role='dialog', aria-labelledby='signupModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            h3.text-center Register 
+            form#signupForm
+              .form-group
+                label(for='usernameRegister') Username
+                input.form-control(type='text', id='usernameRegister', placeholder='Enter username', required)
+              .form-group
+                label(for='emailRegister') Email
+                input.form-control(type='email', id='emailRegister', placeholder='Enter email', required)
+              .form-group
+                label(for='passwordRegister') Password
+                input.form-control(type='password', id='passwordRegister', placeholder='Enter password', required)
+              .text-center
+                button.btn.btn-primary(type='submit') Sign Up
+
+
+    script.
+
+      $('#loginForm').on('submit', function (event) {
+        event.preventDefault(); 
+        window.location.href = "/games-list"; 
+      });
+
+
+      $('#signupForm').on('submit', function (event) {
+        event.preventDefault(); 
+        window.location.href = "/games-list"; 
+      });
+
+  </body>

@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1= game.name  
+
+      .game-info
+        p.rating
+          
+          each star in [...Array(game.rating)]
+            i.fa.fa-star
+        p.developer= game.developer  
+
+  .row
+    .col-12.col-lg-12
+      .row
+
+        .col-12.col-md-6
+
+          .card.card-primary.mb-3
+            .card-block
+              h2.card-title Tags
+              each tag in game.tags
+                span.badge.badge-warning= tag  
+
+          .card.card-primary.mb-3
+            .card-block
+              h2.card-title Game Description
+              p.description-text
+                | !{game.description}  
+
+        .col-12.col-md-6
+          .card.card-primary
+            .card-block
+              img(src=game.poster, alt=game.name, class='img-fluid mb-2')  
+
+      .row.mt-4
+        .col-12
+          .card.card-primary.review-card
+            .card-block
+              h2.card-title Users reviews
+              each review in game.reviews
+                .row.review
+                  .col-12.no-gutters.review-header
+                    span.rating
+                      each star in [...Array(review.rating)]
+                        i.fa.fa-star
+                    span.reviewAuthor= review.author  
+                    small.reviewTimestamp= review.timestamp  
+                  .col-12
+                    p.reviewText= review.text  
