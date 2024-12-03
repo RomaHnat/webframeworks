@@ -1,5 +1,7 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
   .row.banner
     .col-12
@@ -7,17 +9,19 @@ block content
 
       .game-info
         p.rating
-          
-          each star in [...Array(game.rating)]
-            i.fa.fa-star
+            // Round the rating to the nearest whole number
+            - const roundedRating = Math.round(game.rating);
+
+            // Render the full stars based on the rounded rating
+            each star in [...Array(roundedRating)]
+              i.fa.fa-star
+
         p.developer= game.developer  
 
   .row
     .col-12.col-lg-12
       .row
-
         .col-12.col-md-6
-
           .card.card-primary.mb-3
             .card-block
               h2.card-title Tags
@@ -44,9 +48,14 @@ block content
                 .row.review
                   .col-12.no-gutters.review-header
                     span.rating
-                      each star in [...Array(review.rating)]
+                      // Round the rating to the nearest whole number
+                      - const roundedReviewRating = Math.round(review.rating);
+
+                      // Render the full stars based on the rounded rating
+                      each star in [...Array(roundedReviewRating)]
                         i.fa.fa-star
+
                     span.reviewAuthor= review.author  
                     small.reviewTimestamp= review.timestamp  
                   .col-12
-                    p.reviewText= review.text  
+                    p.reviewText= review.text

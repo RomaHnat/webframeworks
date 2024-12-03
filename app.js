@@ -4,11 +4,10 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
-require('./app_server/models/db');
+require('./app_api/models/db');
 
 const index = require('./app_server/routes/index');
-const users = require('./app_server/routes/users');
+const apiRoutes = require('./app_api/routes/index');
 
 const app = express();
 
@@ -24,8 +23,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', function(req, res, next) {
+res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+next();
+
+// var fs = require('fs');
+// var http = require('http');
+// var https = require('https');
+// var privateKey = fs.readFileSync('./sslcert/key.pem', 'utf8');
+// var certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
+// var credentials = {key: privateKey, cert: certificate};
+// var httpServer = http.createServer(app);
+// var httpsServer = https.createServer(credentials, app);
+// httpServer.listen(8000);
+// httpsServer.listen(443);
+
+
+});
+
+
 app.use('/', index);
-app.use('/users', users);
+app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

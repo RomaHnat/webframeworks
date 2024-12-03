@@ -1,30 +1,20 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
   .row.banner
     .col-12
       h1= pageHeader.title
         small &nbsp;#{pageHeader.strapline}
   .row
-  p.lead Don't Know what to play? Looking for other players review and recommendations? Then Welcome!
-    .col-12
+    .col-12.col-md-8
 
-      .row
-        each game in games
-          .col-lg-4.col-md-4.col-sm-6.mb-4
-            .card.h-100.p-2
-              .card-block
+      app-games-list Loading
+    
+block scripts
 
-                if game.poster
-                  img(src=game.poster, alt=game.name, class='img-fluid mb-2') 
-                h4
-                  a(href="/game-info")= game.name
-
-                each star in [...Array(game.rating)]
-                  i.fa.fa-star
-
-              p.address= game.developer
-              
-              .facilities
-                each tag in game.tags
-                  span.badge.badge-warning= tag
+ script(src='/build/runtime.2c738d78a0dc7c1f.js')
+ script(src='/build/polyfills.f49bae31afb7cfa3.js')
+ script(src='/build/main.3020c511a86a628e.js')
+ 

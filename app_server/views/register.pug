@@ -20,27 +20,88 @@ html
           span.or-text OR
           button.buttonregister#signupButton(type='button', data-toggle='modal', data-target='#signupModal') Sign Up
 
+script.
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const data = {
+            username: formData.get('username'),
+            password: formData.get('password')
+          };
+
+          fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.user) {
+              window.location.href = '/games-list';
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const data = {
+            username: formData.get('username'),
+            password: formData.get('password'),
+            email: formData.get('email')
+          };
+
+          console.log('Submitting data:', data); 
+
+          fetch('/api/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+            window.location.href = '/';
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        });
+      });
+
+
+
     //- Login Modal
-    .modal.fade#loginModal(tabindex='-1', role='dialog', aria-labelledby='loginModalLabel', aria-hidden='true')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;
-          .modal-body
-            h3.text-center Login 
-            form#loginForm
-              .form-group
-                label(for='username') Username
-                input.form-control(type='text', id='username', placeholder='Enter username', required)
-              .form-group
-                label(for='password') Password
-                input.form-control(type='password', id='password', placeholder='Enter password', required)
-              .text-center
-                button.btn.btn-primary(type='submit') Log In
+.modal.fade#loginModal(tabindex='-1', role='dialog', aria-labelledby='loginModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          h3.text-center Login
+          form#loginForm
+            .form-group
+              label(for='username') Username
+              input.form-control(type='text', name='username', id='username', placeholder='Enter username', required)
+            .form-group
+              label(for='password') Password
+              input.form-control(type='password', name='password', id='password', placeholder='Enter password', required)
+            .text-center
+              button.btn.btn-primary(type='submit') Log In
 
     //- Signup Modal
-    .modal.fade#signupModal(tabindex='-1', role='dialog', aria-labelledby='signupModalLabel', aria-hidden='true')
+.modal.fade#signupModal(tabindex='-1', role='dialog', aria-labelledby='signupModalLabel', aria-hidden='true')
       .modal-dialog(role='document')
         .modal-content
           .modal-header
@@ -51,28 +112,13 @@ html
             form#signupForm
               .form-group
                 label(for='usernameRegister') Username
-                input.form-control(type='text', id='usernameRegister', placeholder='Enter username', required)
+                input.form-control(type='text', name='username', id='usernameRegister', placeholder='Enter username', required)
               .form-group
                 label(for='emailRegister') Email
-                input.form-control(type='email', id='emailRegister', placeholder='Enter email', required)
+                input.form-control(type='email', name='email', id='emailRegister', placeholder='Enter email', required)
               .form-group
                 label(for='passwordRegister') Password
-                input.form-control(type='password', id='passwordRegister', placeholder='Enter password', required)
+                input.form-control(type='password', name='password', id='passwordRegister', placeholder='Enter password', required)
               .text-center
                 button.btn.btn-primary(type='submit') Sign Up
 
-
-    script.
-
-      $('#loginForm').on('submit', function (event) {
-        event.preventDefault(); 
-        window.location.href = "/games-list"; 
-      });
-
-
-      $('#signupForm').on('submit', function (event) {
-        event.preventDefault(); 
-        window.location.href = "/games-list"; 
-      });
-
-  </body>
