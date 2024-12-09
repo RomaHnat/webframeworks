@@ -34,7 +34,7 @@ const gamesList = function(req, res){
     };
 
 
-/* GET 'Game info' page for Cyberpunk 2077 */
+/* GET 'Game info'  */
 const gameInfo = function (req, res) {
   const gameid = req.params.gameid;
   const path = `/api/games/${gameid}`;

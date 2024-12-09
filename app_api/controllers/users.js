@@ -8,11 +8,9 @@ const usersCreate = async function(req, res) {
   try {
     console.log('Received data:', req.body);
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
     const user = await User.create({
       username: req.body.username,
-      password: hashedPassword,
+      password: req.body.password, 
       email: req.body.email
     });
 
@@ -52,13 +50,17 @@ const login = function(req, res, next) {
 };
   
 
-  const logout = function(req, res) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      req.session.destroy(); 
-      res.redirect('/');
+const logout = function(req, res) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    req.session.destroy(function(err) {
+      if (err) {
+        return res.status(500).json({ message: 'Error destroying session' });
+      }
+      res.status(200).json({ success: true });  // Send success response on logout
     });
-  };
+  });
+};
 
   
   module.exports = {

@@ -11,14 +11,14 @@ html
       .container
         button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarMain')
           span.navbar-toggler-icon
-        a.navbar-brand(href='/games-list/') Gamer<sup>2</sup>
+        a.navbar-brand(href='/games-list') Gamer<sup>2</sup>
         #navbarMain.navbar-collapse.collapse
           ul.navbar-nav.mr-auto
             li.nav-item
-              a.nav-link(href='/about/') About
+              a.nav-link(href='/about') About
             li.nav-item
-              a.nav-link(href='/ ') Log Out
-             
+              a.nav-link(href='/ ' id='logout-link') Log Out
+
     .container
       block content
 
@@ -27,3 +27,27 @@ html
     script(src='/javascripts/bootstrap.min.js')
 
     block scripts
+    script.
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+          event.preventDefault();
+
+          fetch('/api/logout', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              window.location.href = '/'; // Redirect to the login page after successful logout
+            } else {
+              alert(data.message); // Display an error message if logout fails
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        });
+      });

@@ -8,13 +8,7 @@ block content
       h1= game.name  
 
       .game-info
-        p.rating
-            // Round the rating to the nearest whole number
-            - const roundedRating = Math.round(game.rating);
 
-            // Render the full stars based on the rounded rating
-            each star in [...Array(roundedRating)]
-              i.fa.fa-star
 
         p.developer= game.developer  
 
