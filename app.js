@@ -4,28 +4,30 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('passport'); // Make sure this is required here
-const session = require('express-session'); // Ensure express-session is imported
+const passport = require('passport');
+const session = require('express-session');
+const cors = require('cors'); // Import the cors module
 
 require('./app_api/models/db');
-require('./app_api/config/passport'); // Ensure Passport configuration is imported
+require('./app_api/config/passport');
 
 const index = require('./app_server/routes/index');
 const apiRoutes = require('./app_api/routes/index');
 
 const app = express();
 
-// const fs = require('fs');
-// const http = require('http');
-// const https = require('https');
-// const privateKey = fs.readFileSync('./sslcert/key.pem', 'utf8');
-// const certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
-// const credentials = {key: privateKey, cert: certificate};
-// const httpServer = http.createServer(app);
-// const httpsServer = https.createServer(credentials, app);
-// httpServer.listen(8000);
-// httpsServer.listen(443);
-
+// Configure CORS
+const allowedOrigins = ['http://localhost:4200', 'https://helloexpressrh.onrender.com'];
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -38,26 +40,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Add session middleware **before** initializing Passport
+// Add session middleware
 app.use(
-  session({
-    secret: 'very secret key', 
-    resave: false, 
-    saveUninitialized: false, 
-    cookie: { secure: false }, 
-  })
+    session({
+        secret: 'very secret key',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: app.get('env') === 'production',
+            httpOnly: true,
+        },
+    })
 );
 
 // Initialize Passport and bind to session
 app.use(passport.initialize());
-app.use(passport.session()); // Passport depends on sessions
-
-// Allow CORS for API routes
-app.use('/api', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+app.use(passport.session());
 
 // Routes
 app.use('/', index);
@@ -65,20 +63,18 @@ app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // Set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // Render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
